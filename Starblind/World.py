@@ -1,10 +1,33 @@
 ﻿import numpy as np
 
 #TODO:
+#MS1:
 #Add characters to collision checks
-#Figure out life system for character
 #Figure out vision system
-#Figure out action system
+#   Discriminate by camera
+#   Discriminate by angle
+#   Discriminate by ray casting
+#Figure out AI
+#   For now shoot on sight, that's it   
+#Implement graphics
+#   Simple display
+#   Get entities inside camera rect
+#   Blit simple image
+#   Implement user events
+#      Move around
+#       Shoot 
+#Implement sounds
+#   Footsteps
+#   gunfire
+#MS2:
+#Better graphics:
+#   Implement animations
+#   Get sprites
+#Add basic goto function for entities
+#Add life and death
+#Implement AI events
+#   Add sound event
+#
 #
 #
 
@@ -76,8 +99,19 @@ class World(object):
         inYRange = np.logical_and(py >= ry1, py < ry2)
         inRectangle = np.logical_and(inXRange, inYRange)
 
-        return inRectangle        
+        return inRectangle
 
+    def getAngles(self, vects1, vects2):
+        angles = np.arctan2(vects1[:,1], vects1[:,0]) - np.arctan2(vects2[:,1], vects2[:,0])
+        return angles
+       
+    def inFieldOfView(self, targetPosition, positions, speeds):
+        vects = - (positions - targetPosition)
+        #TODO: normalize here
+        angles = self.getAngles(vects, speeds)
+        facingTarget = angles < 160
+        rays = vects[facingTarget].dot(np.linspace(0,100)) #TODO: precreate linspace
+        
     def addCharacter(self, position, speed):
         pass #Pass pos and speed by ref i.e: self.pos = array[id]
 

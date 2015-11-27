@@ -1,35 +1,6 @@
-﻿import numpy as np
+import numpy as np
+import Entity
 
-#TODO:
-#MS1:
-#Add characters to collision checks
-#Figure out vision system
-#   Discriminate by camera
-#   Discriminate by angle
-#   Discriminate by ray casting
-#Figure out AI
-#   For now shoot on sight, that's it   
-#Implement graphics
-#   Simple display
-#   Get entities inside camera rect
-#   Blit simple image
-#   Implement user events
-#      Move around
-#       Shoot 
-#Implement sounds
-#   Footsteps
-#   gunfire
-#MS2:
-#Better graphics:
-#   Implement animations
-#   Get sprites
-#Add basic goto function for entities
-#Add life and death
-#Implement AI events
-#   Add sound event
-#
-#
-#
 
 class World(object):
     def __init__(self):
@@ -77,10 +48,10 @@ class World(object):
     def updateCharacters(self):
         newPositions = self.characterPositions + self.characterSpeeds
         collisions = self.getCollisions(newPositions, self.obstacles)
-        colliding = collisions.any(axis=1) 
+        colliding = collisions.any(axis=1)
         self.characterPositions[not colliding] = newPositions[not colliding]
         return collisions
-        
+
     def updateProjectiles(self):
         newPositions = self.projectilePositions + self.projectileSpeeds
         collisions = self.getCollisions(newPositions, self.obstacles) #TODO: Figure out how to check for collisions with characters as well
@@ -104,14 +75,17 @@ class World(object):
     def getAngles(self, vects1, vects2):
         angles = np.arctan2(vects1[:,1], vects1[:,0]) - np.arctan2(vects2[:,1], vects2[:,0])
         return angles
-       
+
     def inFieldOfView(self, targetPosition, positions, speeds):
         vects = - (positions - targetPosition)
         #TODO: normalize here
         angles = self.getAngles(vects, speeds)
         facingTarget = angles < 160
         rays = vects[facingTarget].dot(np.linspace(0,100)) #TODO: precreate linspace
-        
+
+    def spawnEntity(self):
+
+
     def addCharacter(self, position, speed):
         pass #Pass pos and speed by ref i.e: self.pos = array[id]
 

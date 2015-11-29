@@ -1,19 +1,19 @@
-import pygame, Resources, threading, time
+import pygame, threading, time
+from Resources.Resources import Resources
 
 class Renderer(object):
-    def __init__(self, Resources, displaySize=(800,600), renderDelay=0.01):
+    def __init__(self, displaySize=(800,600), renderDelay=0.01):
         self.display = self.createDisplay(displaySize)
         self.renderDelay = renderDelay
-        self.Resources = Resources
 
     def createDisplay(self, displaySize):
         display = pygame.display.set_mode(displaySize)
         return display
 
     def render(self, entities):
-        self.display.blit(self.Resources.assets["background"], (0,0))
+        self.display.blit(Resources._instance.assets["background"], (0,0))
         for entity in entities:
-            self.display.blit(self.Resources.assets[entity.entityType], entity.rect)
+            self.display.blit(Resources._instance.assets[entity.entityType], entity.rect)
 
     def run(self, entities):
         while not self.endRun:

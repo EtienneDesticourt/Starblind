@@ -3,6 +3,8 @@ import time, threading
 from Game.Entity import Entity
 from Game.Player import Player
 from Game.Projectile import Projectile
+from Engine.SoundEvent import SoundEvent #TODO: Should it be in game?
+from math import hypot
 
 class World(object):
     def __init__(self, delay = 0.005):
@@ -21,20 +23,26 @@ class World(object):
         self.entities.append(new)
         return new
 
-    def spawnProjectile(self, position):
+    def spawnProjectile(self, entity):
         #TODO: Implement specific behaviour for projectile.
         #TODO: Don't actually need to check intersection with each other also only contain, not collide
-        new = Projectile(position,[0.6,0.6])
+        dx, dy = entity.calcWeaponOffset()
+        distance = hypot(dx,dy)
+        position = [entity.rect.centerx+dx, entity.rect.centery+dy]
+        facing = entity.facingVect
+        event = SoundEvent(position, "shot", distance)
+        new = Projectile(position, facing)
         self.entities.append(new)
         return new
 
     def shoot(self):
-        currentTime = time.time()
         for entity in self.entities:
             if entity.shooting:
-                if currentTime - entity.lastShot > entity.shootingPeriod:
-                    self.spawnProjectile((entity.rect.centerx, entity.rect.centery))
-                    entity.lastShot = currentTime
+                currentTime = time.time()
+                timeSinceLast = currentTime - entity.lastShot
+                if timeSinceLast  > entity.shootingPeriod:
+                    self.spawnProjectile(entity)
+                    entity.lastShot = time.time()
 
     def move(self):
         movedRects = [entity.rect.move(*entity.speed) for entity in self.entities]
@@ -46,6 +54,7 @@ class World(object):
             copiedRects.remove(rect)
             collisions = rect.collidelist(copiedRects)
             if collisions == -1:
+                #TODO: Handle floats
                 entity.rect.move_ip(*entity.speed)
             copiedRects.append(rect)
 

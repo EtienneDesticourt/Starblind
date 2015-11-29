@@ -1,5 +1,6 @@
 import pygame, threading, time
 from pygame.locals import * #Event types
+from math import atan2, hypot
 
 class EventHandler(object):
     """Handles all pygame events"""
@@ -8,7 +9,7 @@ class EventHandler(object):
 
     def handleEvents(self, player):
         for event in pygame.event.get():
-            print(event)
+            #print(event)
             if event.type == KEYDOWN:
                 if   event.key == 273:
                     player.goingUp = True
@@ -33,6 +34,16 @@ class EventHandler(object):
                 elif event.key == 306:
                     player.shooting = False
                 player.updateSpeed()
+            elif event.type == MOUSEMOTION:
+                x, y = player.rect.centerx, player.rect.centery
+                x1, y1 = event.pos
+                vect = (x1-x, y1-y)
+                norm = hypot(*vect)
+                player.facingVect = [vect[0]/norm, vect[1]/norm]
+
+
+
+
             if event.type == QUIT:
                 self.endRun = True
 

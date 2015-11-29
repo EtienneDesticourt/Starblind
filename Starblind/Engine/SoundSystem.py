@@ -1,27 +1,28 @@
-from Engine.SoundEvent import SoundEvent
-import Resources, pygame
+import pygame, threading, time
+from Resources.Resources import Resources
 
 
 class SoundSystem(object):
     """Interface for the pygame mixer"""
-    def __init__(self):
+    _instance = None
+    def __init__(self, delay=0.01):
         super(SoundSystem, self).__init__()
         self.eventQueue = []
-        pygame.mixer.init()
-
-    def addEvent(self, position, distance, eventType):
-        event = SoundEvent(position, eventType, Sound, distance)
-        self.eventQueue.append(event)
+        self.delay = delay
+        SoundSystem._instance = self
 
     def calcVolume(self, distance):
-        return (1000 - distance) / 1000.
+        volume = (1000 - distance) / 1000.
+        if volume < 0: return 0
+        return volume
 
     def handleEvents(self):
         for event in self.eventQueue:
             #Play
-            volume = self.calcVolume(event.distance)
-            event.Sound.set_volume(volume)
-            event.Sound.play()
+            volume = self.calcVolume(event.distance) - 0.95
+            Sound = Resources._instance.assets[event.eventType]
+            Sound.set_volume(volume)
+            Sound.play()
             #Discard
             self.eventQueue.remove(event)
 

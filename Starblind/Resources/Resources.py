@@ -6,12 +6,13 @@ class Resources(object):
     _instance = None
     def __init__(self):
         #TODO: replace assetsToLoad by file
-        self.assetsToLoad = [("player",     "Resources/player.png"    ),
-                             ("enemy",      "Resources/enemy.png"     ),
-                             ("bullet",     "Resources/bullet.png"    ),
-                             ("shot",       "Resources/shot.ogg"),
-                             ("shotShort",  "Resources/shotShort.ogg"),
-                             ("background", "Resources/background.png")]
+        self.assetsToLoad = [("player",             "Resources/player.png"         ),
+                             ("enemy",              "Resources/enemy.png"          ),
+                             ("bullet",             "Resources/bullet.png"         ),
+                             ("shot",               "Resources/shot.ogg"           ),
+                             ("impact",             "Resources/impact.png"         ),
+                             ("background",         "Resources/background.png"     ),
+                             ("chapter1_scene1",    "Resources/chapter1_scene1.map")]
         self.assets = {}
         Resources._instance = self
 
@@ -21,7 +22,13 @@ class Resources(object):
             if ext == ".png":
                 image = pygame.image.load(fileName)
                 self.assets[key] = image
-            elif  ext == ".ogg":
+            elif ext == ".ogg":
                 sound = pygame.mixer.Sound(fileName)
                 self.assets[key] = sound
+            elif ext == ".map":
+                pass
+
+
+
+
 

@@ -12,7 +12,15 @@ class Entity(object):
         self.shooting = False
         self.shootingPeriod = 0.07 #TODO: Put in weapon class
         self.lastShot = 0
-    def calcWeaponOffset(self):
+
+    def impact(self):
+        "Returns the type of impact made when it's hit"
+        return None
+
+    def hit(self):
+        pass
+
+    def calcWeaponOffset(self): #TODO: Move to shooting entity
         x,y = self.facingVect
         angle = asin( (0*x+1*y)/( hypot(x,y)*hypot(0,1)))
         angle = atan2(-y, x) - 90/180*pi

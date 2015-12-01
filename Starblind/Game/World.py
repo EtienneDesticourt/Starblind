@@ -3,6 +3,8 @@ import time, threading
 from Game.Entity import Entity
 from Game.Player import Player
 from Game.Projectile import Projectile
+from Game.Impact import Impact
+from Resources.Resources import Resources
 from Engine.SoundEvent import SoundEvent #TODO: Should it be in game?
 from math import hypot
 
@@ -11,11 +13,30 @@ class World(object):
         self.delay = delay
         self.entities    = []
         self.projectiles = []
+        self.floor = []
+        self.impacts = []
+
+    def loadMap(self, mapId):
+        mapInfo = Resources._instance.assets[mapId]
+        for entityInfo in mapInfo['entities']:
+            self.spawnEntity(*entityInfo)
+        for tileInfo in mapInfo['floor']:
+            self.spawnFloor(*tileInfo)
+
+
+    #TODO: Clean up all these shitty functions
+    def spawnImpact(self, position, impactType, lifespan):
+        new = Impact()
 
     def spawnEntity(self, position, entityType):
         #TODO: Save entity config in resources and query, pass only pos and not rect
         new = Entity(position, entityType)
         self.entities.append(new)
+        return new
+
+    def spawnFloor(self, position, entityType):
+        new = Entity(position, entityType)
+        self.floor.append(new)
         return new
 
     def spawnPlayer(self, position):
@@ -56,6 +77,14 @@ class World(object):
             if collisions == -1:
                 #TODO: Handle floats
                 entity.rect.move_ip(*entity.speed)
+            else:
+                for i in collisions:
+                    blockingEntity = self.entities[i]
+                    blockingEntity.hit()
+                    impactType = blockingEntity.impact()
+                    if impactType != None:
+                        self.spawnImpact(rect, impactType)
+
             copiedRects.append(rect)
 
     def run(self): #TODO: Move this to mover?

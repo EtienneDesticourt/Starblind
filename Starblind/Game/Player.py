@@ -3,8 +3,8 @@ from Game.Entity import Entity
 
 class Player(Entity):
     """Implements player behaviour"""
-    def __init__(self, rect):
-        super(Player, self).__init__(rect, "player")
+    def __init__(self, Rect):
+        super(Player, self).__init__(Rect, "player")
         #Intentions to better deal with event actions
         self.goingLeft  = False
         self.goingRight = False

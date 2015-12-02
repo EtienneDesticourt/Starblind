@@ -20,7 +20,7 @@ class EventHandler(object):
                 elif event.key == 276:
                     player.goingLeft = True
                 elif event.key == 306:
-                    player.shooting = True
+                    player.isShooting = True
                 player.updateSpeed()
             elif event.type == KEYUP:
                 if   event.key == 273:
@@ -32,10 +32,10 @@ class EventHandler(object):
                 elif event.key == 276:
                     player.goingLeft = False
                 elif event.key == 306:
-                    player.shooting = False
+                    player.isShooting = False
                 player.updateSpeed()
             elif event.type == MOUSEMOTION:
-                x, y = player.rect.centerx, player.rect.centery
+                x, y = player.Rect.centerx, player.Rect.centery
                 x1, y1 = event.pos
                 vect = (x1-x, y1-y)
                 norm = hypot(*vect)

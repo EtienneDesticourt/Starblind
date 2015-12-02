@@ -1,23 +1,28 @@
 from math import hypot, cos, sin, acos, pi, asin, atan2
 
 class Entity(object):
-    def __init__(self, rect, entityType):
-        self.rect  = rect
+    def __init__(self, Rect, entityType):
+        self.Rect  = Rect
         self.speed = [0,0]
         self.facing = [0,0]
         self.angle = 90
         self.facingVect = [0, 0]
         self.weaponOffset = [0,-41] #TODO: Put in weapon class
         self.entityType = entityType
-        self.shooting = False
+        self.isShooting = False
         self.shootingPeriod = 0.07 #TODO: Put in weapon class
-        self.lastShot = 0
+        self.lastShotTime = 0
+        self.canMove = True
+        self.canShoot = True
+        self.canCollide = True
+        self.isVisible = True
+        self.impactType = "impact"
 
     def impact(self):
         "Returns the type of impact made when it's hit"
         return None
 
-    def hit(self):
+    def hitBy(self, Entity):
         pass
 
     def calcWeaponOffset(self): #TODO: Move to shooting entity

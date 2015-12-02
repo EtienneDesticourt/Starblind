@@ -10,20 +10,20 @@ class Renderer(object):
         display = pygame.display.set_mode(displaySize)
         return display
 
-    def render(self, entities):
-        self.display.blit(Resources._instance.assets["background"], (0,0))
-        for entity in entities:
-            self.display.blit(Resources._instance.assets[entity.entityType], entity.rect)
+    def render(self, Entities):
+        for Entity in Entities:
+            self.display.blit(Resources._instance.assets[Entity.entityType], Entity.Rect)
 
-    def run(self, entities):
+    def run(self, Entities):
         while not self.endRun:
-            self.render(entities)
+            self.display.blit(Resources._instance.assets["background"], (0,0))
+            self.render(Entities)
             pygame.display.flip()
             time.sleep(self.renderDelay)
 
-    def start(self, entities):
+    def start(self, Entities):
         self.endRun = False
-        t = threading.Thread(target=self.run, args=[entities])
+        t = threading.Thread(target=self.run, args=[Entities])
         t.start()
 
     def quit(self):

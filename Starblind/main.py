@@ -1,6 +1,7 @@
 from Engine.Renderer        import Renderer
 from Engine.EventHandler    import EventHandler
 from Engine.SoundSystem     import SoundSystem
+from Engine.Animator        import Animator
 from Game.World             import World
 from Game.Workers.Shooter   import Shooter
 from Game.Workers.Mover     import Mover
@@ -21,9 +22,10 @@ Res = Resources()
 Res.load()
 
 #Init world and start workers.
-World   = World()
-Shooter = Shooter(0.01, World)
-Mover   = Mover(0.01, World)
+World    = World()
+Animator = Animator(0.005, World)
+Shooter  = Shooter(0.01, World)
+Mover    = Mover(0.01, World)
 Shooter.start()
 Mover.start()
 
@@ -33,6 +35,7 @@ Enemy  = World.spawnEntity(Rect(100, 130, 30, 30), "enemy")
 
 #Start engine.
 SoundSystem.start()
+Animator.start()
 Renderer.start(World.Entities)
 EventHandler.start(Player) #We start the event handler last because it needs to run on the main thread
 

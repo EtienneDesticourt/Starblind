@@ -1,4 +1,6 @@
 from math import hypot, cos, sin, acos, pi, asin, atan2
+from Engine.Visual import Visual
+from Resources.Resources import Resources
 
 class Entity(object):
     def __init__(self, Rect, entityType):
@@ -8,15 +10,18 @@ class Entity(object):
         self.angle = 90
         self.facingVect = [0, 0]
         self.weaponOffset = [0,-41] #TODO: Put in weapon class
+        self.shootingPeriod = 0.07 #TODO: Put in weapon class
+        self.accuracyOffset = 0.01 #TODO: Put in weapon class
         self.entityType = entityType
         self.isShooting = False
-        self.shootingPeriod = 0.07 #TODO: Put in weapon class
         self.lastShotTime = 0
         self.canMove = True
         self.canShoot = True
         self.canCollide = True
         self.isVisible = True
-        self.impactType = "impact"
+        self.isDeadOnImpact = False
+        self.impactType = "blood_impact"
+        self.Visual = Resources._instance.getVisual(entityType)
 
     def impact(self):
         "Returns the type of impact made when it's hit"

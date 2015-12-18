@@ -12,11 +12,11 @@ class Renderer(object):
 
     def render(self, Entities):
         for Entity in Entities:
-            self.display.blit(Resources._instance.assets[Entity.entityType], Entity.Rect)
+            self.display.blit(Entity.Visual.get(), Entity.Rect)
 
     def run(self, Entities):
         while not self.endRun:
-            self.display.blit(Resources._instance.assets["background"], (0,0))
+            self.display.blit(Resources._instance.assets["background"].get(), (0,0))
             self.render(Entities)
             pygame.display.flip()
             time.sleep(self.renderDelay)

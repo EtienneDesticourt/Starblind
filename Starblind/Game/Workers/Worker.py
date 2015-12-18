@@ -9,7 +9,7 @@ class Worker(object):
         self.threading = threading
 
     def act(self):
-        for Entity in self.Entities:
+        for Entity in self.World.Entities:
             print("I sure love working with entities.")
 
     def run(self):

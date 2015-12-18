@@ -1,6 +1,6 @@
 from Game.Impact import Impact
 from Game.Workers.Worker import Worker
-
+import random
 
 class Shooter(Worker):
     """Handles making the entities shoot."""
@@ -18,5 +18,8 @@ class Shooter(Worker):
                     dx, dy = Entity.calcWeaponOffset()
                     x = Entity.Rect.centerx + dx
                     y = Entity.Rect.centery + dy
-                    self.World.spawnProjectile((x,y), Entity.facingVect)
+                    vx, vy = Entity.facingVect
+                    vx += Entity.accuracyOffset * random.randrange(-50, 50) / 100.
+                    vy += Entity.accuracyOffset * random.randrange(-50, 50) / 100.
+                    self.World.spawnProjectile((x,y), [vx, vy])
                     Entity.lastShotTime = self.time.time()

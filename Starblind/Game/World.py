@@ -12,14 +12,15 @@ class World(object):
     """Holds the world's objects."""
     def __init__(self):
         self.Entities = []
-        self.removalQueue = [] #TODO: implement remover worker
+        self.RemovalQueue = [] #TODO: implement remover worker
+        #TODO: Add non interactive entity/ visual only entity list to speed up rendering, moving, shooting etc
 
     def spawnEntity(self, Rect, entityType):
         #print(len(self.Entities))
         self.Entities.append(Entity(Rect, entityType))
 
     def spawnProjectile(self, position, orientation):
-        #print(len(self.Entities))
+        print(len(self.Entities))
         distance = hypot(self.Player.Rect.centerx - position[0], self.Player.Rect.centery - position[1])
         SoundEvent(position, "shot", distance)
         self.Entities.append(Projectile(position, orientation))

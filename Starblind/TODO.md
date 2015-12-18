@@ -15,9 +15,11 @@
 #   1.1.Tiles
 #   1.2.Entities
 #2.Implement projectile impact
+#   2.1.Implement basic impact         DONE
+#   2.2.Implement timed impact
 #3.Implement entity life
 #4.Improve graphics
-#   4.1.Implement animations
+#   4.1.Implement animations           DONE
 #   4.2.Add sprite rotation
 #   4.3.Add basic walking animation
 #

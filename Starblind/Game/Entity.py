@@ -20,15 +20,33 @@ class Entity(object):
         self.canCollide = True
         self.isVisible = True
         self.isDeadOnImpact = False
+        self.removeOnDeath = True
         self.impactType = "blood_impact"
+        self.life = 1
+        self.damageOnImpact = 0
         self.Visual = Resources._instance.getVisual(entityType)
+
+    def die(self):
+        self.life = 0
+        self.canMove = False
+        self.canCollide = False
+        self.canShoot = False
+
+    def isAlive(self):
+        return self.life > 0
+
+    def isDead(self):
+        return not self.isAlive()
 
     def impact(self):
         "Returns the type of impact made when it's hit"
         return None
 
     def hitBy(self, Entity):
-        pass
+        if self.isDead(): return
+        self.life -= Entity.damageOnImpact
+        if self.isDead():
+            self.die()
 
     def calcWeaponOffset(self): #TODO: Move to shooting entity
         x,y = self.facingVect

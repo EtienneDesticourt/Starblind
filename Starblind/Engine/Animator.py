@@ -6,7 +6,7 @@ class Animator(Worker):
     def __init__(self, *args):
         super(Animator, self).__init__(*args)
 
-    def act(self):
+    def work(self):
         for Entity in self.World.Entities:
             if not isinstance(Entity.Visual, Animation): continue
             Anim = Entity.Visual

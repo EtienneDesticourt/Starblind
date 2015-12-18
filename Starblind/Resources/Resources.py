@@ -24,7 +24,7 @@ class Resources(object):
         Resources._instance = self
 
     def getVisual(self, assetKey):
-        return self.assets[assetKey]
+        return self.assets[assetKey] #Figure out how to give animation copy here
 
     def loadImage(self, path):
         return Visual(pygame.image.load(path))
@@ -35,7 +35,7 @@ class Resources(object):
     def loadAnimation(self, framePaths):
         frames = [pygame.image.load(path) for path in framePaths]#TODO: Add .anim file with timing, paths, etc instead of raw paths
         DELAY = 0.1 #TODO: REMOVE
-        LOOP = False #TODO: REMOVE
+        LOOP = True #TODO: REMOVE
         return Animation(frames, DELAY, LOOP)
 
 

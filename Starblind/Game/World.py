@@ -20,14 +20,15 @@ class World(object):
         self.Entities.append(Entity(Rect, entityType))
 
     def spawnProjectile(self, position, orientation):
-        print(len(self.Entities))
+        print("Entities:", len(self.Entities))
+        print("RemovalQueue:", len(self.RemovalQueue))
         distance = hypot(self.Player.Rect.centerx - position[0], self.Player.Rect.centery - position[1])
         SoundEvent(position, "shot", distance)
         self.Entities.append(Projectile(position, orientation))
 
     def spawnImpact(self, Rect, impactType, lifeSpan):
         #print(len(self.Entities))
-        self.Entities.append(Impact(Rect, impactType, lifeSpan))
+        self.Entities.append(Impact(Rect, impactType, 0))
 
     def spawnPlayer(self, Rect):
         #print(len(self.Entities))

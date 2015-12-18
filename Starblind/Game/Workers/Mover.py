@@ -6,7 +6,7 @@ class Mover(Worker):
     def __init__(self, *args):
         super(Mover, self).__init__(*args)
 
-    def act(self):
+    def work(self):
         #Go through all the entities that can move
         for MovingEntity in self.World.Entities:
             if not MovingEntity.canMove: continue
@@ -23,7 +23,7 @@ class Mover(Worker):
                     hasMetObstacle = True
 
                     if MovingEntity.isDeadOnImpact:
-                        self.World.RemovalQueue.append(MovingEntity)
+                        MovingEntity.die()
 
             #If it didn't collide with anyone move it
             if not hasMetObstacle:

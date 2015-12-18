@@ -7,7 +7,7 @@ class Shooter(Worker):
     def __init__(self, *args):
         super(Shooter, self).__init__(*args)
 
-    def act(self):
+    def work(self):
         for Entity in self.World.Entities:
             if Entity.canShoot and Entity.isShooting:
                 #Check if enough time has passed since last shot

@@ -5,6 +5,7 @@ from Engine.Animator        import Animator
 from Game.World             import World
 from Game.Workers.Shooter   import Shooter
 from Game.Workers.Mover     import Mover
+from Game.Workers.Remover   import Remover
 from Resources.Resources    import Resources
 from pygame import Rect
 import pygame
@@ -26,8 +27,10 @@ World    = World()
 Animator = Animator(0.005, World)
 Shooter  = Shooter(0.01, World)
 Mover    = Mover(0.01, World)
+Remover  = Remover(0.1, World)
 Shooter.start()
 Mover.start()
+Remover.start()
 
 #Add player and enemy.
 Player = World.spawnPlayer(Rect(380,280,30,30))
@@ -46,4 +49,6 @@ Renderer.quit()
 SoundSystem.quit()
 Shooter.quit()
 Mover.quit()
+Remover.quit()
+Animator.quit()
 

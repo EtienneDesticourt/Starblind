@@ -8,13 +8,13 @@ class Worker(object):
         self.time = time
         self.threading = threading
 
-    def act(self):
+    def work(self):
         for Entity in self.World.Entities:
             print("I sure love working with entities.")
 
     def run(self):
         while not self.endRun:
-            self.act()
+            self.work()
             self.time.sleep(self.actionDelay)
 
     def start(self):

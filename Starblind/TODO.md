@@ -14,10 +14,13 @@
 #1.Implement maps
 #   1.1.Tiles
 #   1.2.Entities
-#2.Implement projectile impact
+#2.Implement projectile impact         DONE
 #   2.1.Implement basic impact         DONE
-#   2.2.Implement timed impact
-#3.Implement entity life
+#   2.2.Implement timed impact         DONE
+#3.Implement entity life               DONE
+#   3.1.Implement basic life funcs     DONE
+#   3.2.Implement removal thread       DONE
+#   3.3.Implement hit funcs            DONE
 #4.Improve graphics
 #   4.1.Implement animations           DONE
 #   4.2.Add sprite rotation
